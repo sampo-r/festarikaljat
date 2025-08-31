@@ -1,6 +1,6 @@
 [
-  { "festival": "Flow Festival", "drink": "Beer 0.5l", "price": 9.5 },
-  { "festival": "Ruisrock", "drink": "Cider 0.5l", "price": 8.0 },
-  { "festival": "Provinssi", "drink": "Long drink 0.5l", "price": 9.0 },
-  { "festival": "Ilosaarirock", "drink": "Water 0.5l", "price": 3.5 }
+  { "festival": "Flow Festival", "drink": "Beer 0.5l", "price": 9.5, "year": 2023 },
+  { "festival": "Ruisrock", "drink": "Cider 0.5l", "price": 8.0, "year": 2023 },
+  { "festival": "Provinssi", "drink": "Long drink 0.5l", "price": 9.0, "year": 2023 },
+  { "festival": "Ilosaarirock", "drink": "Water 0.5l", "price": 3.5, "year": 2023 }
 ]
