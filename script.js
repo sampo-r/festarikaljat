@@ -27,7 +27,14 @@ function renderTable(data) {
     tbody.innerHTML += row;
   });
 }
+document.getElementById("yearFilter").addEventListener("input", function() {
+  const year = parseInt(this.value);
+  const filtered = data.filter(item => !year || item.year === year);
+  renderTable(filtered);
+});
+
 
 
 loadData();
+
 
