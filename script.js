@@ -22,9 +22,12 @@ function renderTable(data) {
       <td>${item.festival}</td>
       <td>${item.drink}</td>
       <td>${item.price.toFixed(2)}</td>
+      <td>${item.year}</td>
     </tr>`;
     tbody.innerHTML += row;
   });
 }
 
+
 loadData();
+
