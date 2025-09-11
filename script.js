@@ -1,83 +1,19 @@
 async function loadData() {
-  const response = await fetch("data.json");
-  const data = await response.json();
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgHePLMMCG5HB9M9UeW97ZydyHIQdwaqkHWkpGxgtAeKGbU1gYv7G3A5wAZx4n7tFT4AioQq6DfGcd/pub?gid=0&single=true&output=csv"; // replace with your link
 
-  const container = document.getElementById("tablesContainer");
-  container.innerHTML = "";
+  const response = await fetch(url);
+  const csvText = await response.text();
 
-  // Get unique years
-  const years = [...new Set(data.map(d => d.year))].sort();
+  // Parse CSV using PapaParse
+  const parsed = Papa.parse(csvText, { header: true });
+  const data = parsed.data.map(row => ({
+    festival: row.festival.trim(),
+    year: parseInt(row.year),
+    beer_brand: row.beer_brand.trim(),
+    size_liters: parseFloat(row.size_liters.replace(",", ".")),
+    price_eur: parseFloat(row.price_eur.replace(",", ".")),
+    price_per_liter: parseFloat(row.price_per_liter.replace(",", "."))
+  }));
 
-  years.forEach(year => {
-    const yearData = data.filter(d => d.year === year);
-
-    // Get all unique drinks for this year
-    const drinks = [...new Set(yearData.map(d => d.drink))].sort();
-
-    // Build table
-    const table = document.createElement("table");
-
-    // Header row
-    let thead = `<thead><tr><th colspan="${drinks.length + 1}">${year}</th></tr><tr><th data-sort="festival">Festival ⬍</th>`;
-    drinks.forEach(drink => {
-      thead += `<th data-sort="${drink}">${drink} ⬍</th>`;
-    });
-    thead += `</tr></thead>`;
-
-    // Body rows
-    let tbody = "<tbody>";
-    const festivals = [...new Set(yearData.map(d => d.festival))].sort();
-    festivals.forEach(festival => {
-      tbody += `<tr><td><strong>${festival}</strong></td>`;
-      drinks.forEach(drink => {
-        const item = yearData.find(d => d.festival === festival && d.drink === drink);
-        tbody += `<td>${item ? item.price.toFixed(2) : "-"}</td>`;
-      });
-      tbody += "</tr>";
-    });
-    tbody += "</tbody>";
-
-    table.innerHTML = thead + tbody;
-    container.appendChild(table);
-
-    // Add sorting
-    enableSorting(table);
-  });
+  renderTables(data);
 }
-
-// Sorting function
-function enableSorting(table) {
-  const headers = table.querySelectorAll("thead th");
-  headers.forEach((th, i) => {
-    th.addEventListener("click", () => {
-      const tbody = table.querySelector("tbody");
-      const rows = Array.from(tbody.querySelectorAll("tr"));
-      const asc = th.classList.toggle("asc");
-
-      rows.sort((a, b) => {
-        const aText = a.children[i].innerText.trim();
-        const bText = b.children[i].innerText.trim();
-
-        const aNum = parseFloat(aText.replace(",", "."));
-        const bNum = parseFloat(bText.replace(",", "."));
-
-        // If both numbers are valid
-        if (!isNaN(aNum) && !isNaN(bNum)) {
-          return asc ? aNum - bNum : bNum - aNum;
-        }
-        // If only one is a number → push "-" to bottom
-        if (!isNaN(aNum)) return asc ? -1 : 1;
-        if (!isNaN(bNum)) return asc ? 1 : -1;
-
-        // Fallback to text sorting
-        return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
-      });
-
-      tbody.innerHTML = "";
-      rows.forEach(r => tbody.appendChild(r));
-    });
-  });
-}
-
-
-loadData();
