@@ -55,13 +55,14 @@ th.desc::after {
 thead tr.year-row {
   background-color: #ff9f1c; /* bright orange */
   font-weight: bold;
-  font-size: 1.1rem;
-  text-align: center;
+  font-size: 1.2rem; /* slightly bigger for emphasis */
+  text-align: center; /* center the text */
   position: sticky;
   top: 0;
   z-index: 2;
   color: #111; /* dark text on orange */
 }
+
 
 /* Table body background */
 tbody tr {
