@@ -4,15 +4,15 @@ body {
   font-size: 16px;
   line-height: 1.5;
   margin: 1rem;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: #fff; /* revert to white background */
+  color: #000; /* default text color */
 }
 
 h1 {
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
+  color: #222; /* darker header color */
 }
 
 /* Container for all tables */
@@ -27,19 +27,17 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  background-color: #fff;
 }
 
 th, td {
   padding: 0.6rem 0.8rem;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc; /* lighter border color */
 }
 
 th {
-  background-color: #3498db;
-  color: white;
+  background-color: #f0f0f0; /* back to previous header color */
+  color: #000; /* black text */
   cursor: pointer; /* for sorting */
   user-select: none;
 }
@@ -52,9 +50,9 @@ th.desc::after {
   content: " ▼";
 }
 
-/* Highlight year row */
+/* Highlight year row with subtle color */
 thead tr.year-row {
-  background-color: #ecf0f1;
+  background-color: #e0e0e0; /* slightly darker than table header */
   font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
@@ -65,7 +63,7 @@ thead tr.year-row {
 
 /* Row hover effect */
 tbody tr:hover {
-  background-color: #f1f8ff;
+  background-color: #f9f9f9; /* subtle hover effect */
 }
 
 /* Responsive adjustments */
