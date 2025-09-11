@@ -1,40 +1,51 @@
 async function loadData() {
   const response = await fetch("data.json");
   const data = await response.json();
-  renderTable(data);
 
-  // Add search functionality
-  document.getElementById("search").addEventListener("keyup", function() {
+  const container = document.getElementById("tablesContainer");
+  container.innerHTML = "";
+
+  // Group data by festival
+  const festivals = [...new Set(data.map(d => d.festival))];
+
+  festivals.forEach(festival => {
+    // Group by year
+    const festivalData = data.filter(d => d.festival === festival);
+    const years = [...new Set(festivalData.map(d => d.year))].sort();
+
+    years.forEach(year => {
+      const yearData = festivalData.filter(d => d.year === year);
+
+      // Build table HTML
+      const table = document.createElement("table");
+      table.innerHTML = `
+        <thead>
+          <tr><th colspan="2">${festival} – ${year}</th></tr>
+          <tr>
+            <th>Drink</th>
+            <th>Price (€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${yearData.map(item =>
+            `<tr><td>${item.drink}</td><td>${item.price.toFixed(2)}</td></tr>`
+          ).join('')}
+        </tbody>
+      `;
+      container.appendChild(table);
+    });
+  });
+
+  // Add search filter
+  document.getElementById("search").addEventListener("input", function() {
     const keyword = this.value.toLowerCase();
-    const filtered = data.filter(item =>
-      item.festival.toLowerCase().includes(keyword) ||
-      item.drink.toLowerCase().includes(keyword)
-    );
-    renderTable(filtered);
+    const tables = container.querySelectorAll("table");
+
+    tables.forEach(table => {
+      const text = table.innerText.toLowerCase();
+      table.style.display = text.includes(keyword) ? "table" : "none";
+    });
   });
 }
-
-function renderTable(data) {
-  const tbody = document.querySelector("#drinkTable tbody");
-  tbody.innerHTML = "";
-  data.forEach(item => {
-    const row = `<tr>
-      <td>${item.festival}</td>
-      <td>${item.drink}</td>
-      <td>${item.price.toFixed(2)}</td>
-      <td>${item.year}</td>
-    </tr>`;
-    tbody.innerHTML += row;
-  });
-}
-document.getElementById("yearFilter").addEventListener("input", function() {
-  const year = parseInt(this.value);
-  const filtered = data.filter(item => !year || item.year === year);
-  renderTable(filtered);
-});
-
-
 
 loadData();
-
-
