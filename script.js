@@ -31,7 +31,9 @@ function renderTables(data) {
   const container = document.getElementById("tablesContainer");
   container.innerHTML = "";
 
-  const years = [...new Set(data.map(d => d.year))].sort();
+  // Sort years descending so latest year is on top
+const years = [...new Set(data.map(d => d.year))].sort((a, b) => b - a);
+
 
   years.forEach(year => {
     const yearData = data.filter(d => d.year === year);

@@ -4,60 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Festival Drink Prices in Finland</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f9f9f9;
-  }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="style.css">
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 40px;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-  }
-
-  th {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  th.asc::after {
-    content: " ▲";
-  }
-
-  th.desc::after {
-    content: " ▼";
-  }
-
-  tr:nth-child(even){background-color: #f2f2f2;}
-  tr:hover {background-color: #e9f5e9;}
-</style>
 </head>
 <body>
 
 <h1>Festival Drink Prices in Finland</h1>
 <div id="tablesContainer"></div>
 
-<!-- PapaParse -->
+<!-- PapaParse for CSV parsing -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-<!-- Your external script -->
+<!-- External script -->
 <script src="script.js"></script>
 
 </body>
