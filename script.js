@@ -1,24 +1,23 @@
-// Make sure you include PapaParse in index.html
-// <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+// Script to fetch data from Google Sheets JSON feed and render tables
+
+const sheetId = "2PACX-1vRgHePLMMCG5HB9M9UeW97ZydyHIQdwaqkHWkpGxgtAeKGbU1gYv7G3A5wAZx4n7tFT4AioQq6DfGcd";
+const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/od6/public/values?alt=json`;
 
 async function loadData() {
-  const url = "REMOVED";
- // replace with your sheet link
-
   try {
     const response = await fetch(url);
-    const csvText = await response.text();
+    const dataJSON = await response.json();
+    
+    // Extract rows
+    const entries = dataJSON.feed.entry;
 
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-
-    // Map CSV rows to usable data
-    const data = parsed.data.map(row => ({
-      festival: row.festival.trim(),
-      year: parseInt(row.year),
-      beer_brand: row.beer_brand.trim(),
-      size_liters: parseFloat(row.size_liters),
-      price_eur: parseFloat(row.price_eur),
-      price_per_liter: parseFloat(row.price_per_liter)
+    const data = entries.map(row => ({
+      festival: row.gsx$festival.$t.trim(),
+      year: parseInt(row.gsx$year.$t),
+      beer_brand: row.gsx$beer_brand.$t.trim(),
+      size_liters: parseFloat(row.gsx$size_liters.$t),
+      price_eur: parseFloat(row.gsx$price_eur.$t),
+      price_per_liter: parseFloat(row.gsx$price_per_liter.$t)
     }));
 
     renderTables(data);
@@ -32,13 +31,12 @@ function renderTables(data) {
   const container = document.getElementById("tablesContainer");
   container.innerHTML = "";
 
-  // Get unique years
+  // Unique years
   const years = [...new Set(data.map(d => d.year))].sort();
 
   years.forEach(year => {
     const yearData = data.filter(d => d.year === year);
 
-    // Unique drink labels for header
     const drinks = [...new Set(yearData.map(d => `${d.size_liters}l ${d.beer_brand}`))].sort();
     const festivals = [...new Set(yearData.map(d => d.festival))].sort();
 
@@ -74,7 +72,7 @@ function renderTables(data) {
 
 // Sorting function
 function enableSorting(table) {
-  const headers = table.querySelectorAll("thead tr:nth-child(2) th"); // skip year title row
+  const headers = table.querySelectorAll("thead tr:nth-child(2) th");
   headers.forEach((th, i) => {
     th.addEventListener("click", () => {
       const tbody = table.querySelector("tbody");
