@@ -1,23 +1,13 @@
-// CSV link from your published Google Sheet
+// API URL from your Vercel backend
 const sheetUrl = "https://festarikaljat-backend.vercel.app/api/beers";
 
 async function loadData() {
   try {
     const response = await fetch(sheetUrl);
     if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-    
-    const csvText = await response.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-    const data = parsed.data.map(row => ({
-      festival: row.festival.trim(),
-      year: parseInt(row.year),
-      beer_brand: row.beer_brand.trim(),
-      size_liters: parseFloat(row.size_liters),
-      price_eur: parseFloat(row.price_eur),
-      price_per_liter: parseFloat(row.price_per_liter)
-    }));
-
+    // Parse JSON directly (backend returns JSON, not CSV)
+    const data = await response.json();
     renderTables(data);
   } catch (error) {
     console.error("Error loading data:", error);
@@ -36,7 +26,7 @@ function renderTables(data) {
     const yearData = data.filter(d => d.year === year);
     const table = document.createElement("table");
 
-    // Year row
+    // Table header
     let thead = `<thead>
       <tr class="year-row"><th colspan="5">${year}</th></tr>
       <tr>
@@ -96,4 +86,3 @@ function enableSorting(table) {
 
 // Load data on page load
 loadData();
-
