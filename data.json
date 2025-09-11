@@ -1,6 +1,31 @@
 [
-  { "festival": "Flow Festival", "drink": "Beer 0.5l", "price": 9.5, "year": 2023 },
-  { "festival": "Ruisrock", "drink": "Cider 0.5l", "price": 8.0, "year": 2023 },
-  { "festival": "Provinssi", "drink": "Long drink 0.5l", "price": 9.0, "year": 2023 },
-  { "festival": "Ilosaarirock", "drink": "Water 0.5l", "price": 3.5, "year": 2023 }
+  { "festival": "Flow Festival", "year": 2022, "drink": "Beer 0.5l", "price": 9.5 },
+  { "festival": "Flow Festival", "year": 2022, "drink": "Cider 0.5l", "price": 9.0 },
+  { "festival": "Flow Festival", "year": 2023, "drink": "Beer 0.5l", "price": 10.0 },
+  { "festival": "Flow Festival", "year": 2023, "drink": "Long drink 0.5l", "price": 10.0 },
+
+  { "festival": "Ruisrock", "year": 2022, "drink": "Beer 0.5l", "price": 8.5 },
+  { "festival": "Ruisrock", "year": 2022, "drink": "Cider 0.5l", "price": 8.0 },
+  { "festival": "Ruisrock", "year": 2023, "drink": "Beer 0.5l", "price": 9.0 },
+  { "festival": "Ruisrock", "year": 2023, "drink": "Long drink 0.5l", "price": 9.5 },
+
+  { "festival": "Provinssi", "year": 2022, "drink": "Beer 0.5l", "price": 9.0 },
+  { "festival": "Provinssi", "year": 2022, "drink": "Water 0.5l", "price": 3.5 },
+  { "festival": "Provinssi", "year": 2023, "drink": "Beer 0.5l", "price": 9.5 },
+  { "festival": "Provinssi", "year": 2023, "drink": "Cider 0.5l", "price": 9.0 },
+
+  { "festival": "Ilosaarirock", "year": 2022, "drink": "Beer 0.5l", "price": 8.0 },
+  { "festival": "Ilosaarirock", "year": 2022, "drink": "Water 0.5l", "price": 3.0 },
+  { "festival": "Ilosaarirock", "year": 2023, "drink": "Beer 0.5l", "price": 8.5 },
+  { "festival": "Ilosaarirock", "year": 2023, "drink": "Long drink 0.5l", "price": 9.0 },
+
+  { "festival": "Qstock", "year": 2022, "drink": "Beer 0.5l", "price": 9.0 },
+  { "festival": "Qstock", "year": 2022, "drink": "Cider 0.5l", "price": 8.5 },
+  { "festival": "Qstock", "year": 2023, "drink": "Beer 0.5l", "price": 9.5 },
+  { "festival": "Qstock", "year": 2023, "drink": "Long drink 0.5l", "price": 9.5 },
+
+  { "festival": "Tuska Open Air", "year": 2022, "drink": "Beer 0.5l", "price": 8.5 },
+  { "festival": "Tuska Open Air", "year": 2022, "drink": "Cider 0.5l", "price": 8.0 },
+  { "festival": "Tuska Open Air", "year": 2023, "drink": "Beer 0.5l", "price": 9.0 },
+  { "festival": "Tuska Open Air", "year": 2023, "drink": "Long drink 0.5l", "price": 9.5 }
 ]
