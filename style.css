@@ -52,16 +52,16 @@ th.desc::after {
 }
 
 /* Highlight year row */
-thead tr.year-row {
+thead tr.year-row th {
   background-color: #ff9f1c; /* bright orange */
   font-weight: bold;
-  font-size: 1.2rem; /* slightly bigger for emphasis */
-  text-align: center; /* center the text */
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  font-size: 1.2rem; /* slightly bigger */
+  text-align: center; /* horizontal centering */
+  vertical-align: middle; /* vertical centering */
   color: #111; /* dark text on orange */
+  padding: 0.8rem 0; /* optional: adjust row height */
 }
+
 
 
 /* Table body background */
