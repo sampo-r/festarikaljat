@@ -1,30 +1,85 @@
-async function loadData() {
-  const response = await fetch("data.json");
-  const data = await response.json();
+/* General layout */
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f6f8;
+  color: #333;
+}
 
-  const container = document.getElementById("tablesContainer");
-  container.innerHTML = "";
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #222;
+  color: #fff;
+}
 
-  // Group data by festival
-  const festivals = [...new Set(data.map(d => d.festival))];
+header h1 {
+  margin-bottom: 0.5rem;
+}
 
-  festivals.forEach(festival => {
-    // Group by year
-    const festivalData = data.filter(d => d.festival === festival);
-    const years = [...new Set(festivalData.map(d => d.year))].sort();
+header p {
+  margin-top: 0;
+  color: #ccc;
+}
 
-    years.forEach(year => {
-      const yearData = festivalData.filter(d => d.year === year);
+#search {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  border: none;
+  width: 60%;
+  max-width: 400px;
+  font-size: 1rem;
+}
 
-      // Build table HTML
-      const table = document.createElement("table");
-      table.innerHTML = `
-        <thead>
-          <tr><th colspan="2">${festival} – ${year}</th></tr>
-          <tr>
-            <th>Drink</th>
-            <th>Price (€)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${yearData.map
+/* Tables container */
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+/* Festival cards */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+thead {
+  background: #007acc;
+  color: #fff;
+}
+
+thead th {
+  padding: 0.8rem;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.8rem;
+  border-top: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+tbody tr:hover {
+  background: #eef6ff;
+  transition: 0.2s;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #222;
+  color: #aaa;
+  font-size: 0.9rem;
+}
