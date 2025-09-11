@@ -55,14 +55,21 @@ function enableSorting(table) {
       const asc = th.classList.toggle("asc");
 
       rows.sort((a, b) => {
-        const aText = a.children[i].innerText;
-        const bText = b.children[i].innerText;
+        const aText = a.children[i].innerText.trim();
+        const bText = b.children[i].innerText.trim();
 
-        // If numeric values
-        if (!isNaN(parseFloat(aText)) && !isNaN(parseFloat(bText))) {
-          return asc ? aText - bText : bText - aText;
+        const aNum = parseFloat(aText.replace(",", "."));
+        const bNum = parseFloat(bText.replace(",", "."));
+
+        // If both numbers are valid
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          return asc ? aNum - bNum : bNum - aNum;
         }
-        // Text values
+        // If only one is a number → push "-" to bottom
+        if (!isNaN(aNum)) return asc ? -1 : 1;
+        if (!isNaN(bNum)) return asc ? 1 : -1;
+
+        // Fallback to text sorting
         return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
       });
 
@@ -71,5 +78,6 @@ function enableSorting(table) {
     });
   });
 }
+
 
 loadData();
