@@ -1,23 +1,23 @@
-// Script to fetch data from Google Sheets JSON feed and render tables
+// Make sure you include PapaParse in your HTML
+// <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-const sheetId = "2PACX-1vRgHePLMMCG5HB9M9UeW97ZydyHIQdwaqkHWkpGxgtAeKGbU1gYv7G3A5wAZx4n7tFT4AioQq6DfGcd";
-const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/od6/public/values?alt=json`;
+const sheetUrl = "REMOVED";
 
 async function loadData() {
   try {
-    const response = await fetch(url);
-    const dataJSON = await response.json();
+    const response = await fetch(sheetUrl);
+    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
     
-    // Extract rows
-    const entries = dataJSON.feed.entry;
+    const csvText = await response.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-    const data = entries.map(row => ({
-      festival: row.gsx$festival.$t.trim(),
-      year: parseInt(row.gsx$year.$t),
-      beer_brand: row.gsx$beer_brand.$t.trim(),
-      size_liters: parseFloat(row.gsx$size_liters.$t),
-      price_eur: parseFloat(row.gsx$price_eur.$t),
-      price_per_liter: parseFloat(row.gsx$price_per_liter.$t)
+    const data = parsed.data.map(row => ({
+      festival: row.festival.trim(),
+      year: parseInt(row.year),
+      beer_brand: row.beer_brand.trim(),
+      size_liters: parseFloat(row.size_liters),
+      price_eur: parseFloat(row.price_eur),
+      price_per_liter: parseFloat(row.price_per_liter)
     }));
 
     renderTables(data);
@@ -31,7 +31,6 @@ function renderTables(data) {
   const container = document.getElementById("tablesContainer");
   container.innerHTML = "";
 
-  // Unique years
   const years = [...new Set(data.map(d => d.year))].sort();
 
   years.forEach(year => {
@@ -42,14 +41,12 @@ function renderTables(data) {
 
     const table = document.createElement("table");
 
-    // Table header
     let thead = `<thead>
       <tr><th colspan="${drinks.length + 1}">${year}</th></tr>
       <tr><th>Festival</th>`;
     drinks.forEach(drink => thead += `<th>${drink}</th>`);
     thead += "</tr></thead>";
 
-    // Table body
     let tbody = "<tbody>";
     festivals.forEach(festival => {
       tbody += `<tr><td><strong>${festival}</strong></td>`;
@@ -70,7 +67,6 @@ function renderTables(data) {
   });
 }
 
-// Sorting function
 function enableSorting(table) {
   const headers = table.querySelectorAll("thead tr:nth-child(2) th");
   headers.forEach((th, i) => {
@@ -96,5 +92,4 @@ function enableSorting(table) {
   });
 }
 
-// Load data on page load
 loadData();
