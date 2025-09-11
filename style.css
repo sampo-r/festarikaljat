@@ -4,21 +4,21 @@ body {
   font-size: 16px;
   line-height: 1.5;
   margin: 1rem;
-  background-color: #fff; /* revert to white background */
-  color: #000; /* default text color */
+  background-color: #fff;
+  color: #000;
 }
 
 h1 {
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #222; /* darker header color */
+  color: #222;
 }
 
 /* Container for all tables */
 #tablesContainer {
   width: 100%;
-  overflow-x: auto; /* horizontal scroll on small screens */
+  overflow-x: auto;
   margin-bottom: 2rem;
 }
 
@@ -29,16 +29,17 @@ table {
   margin-bottom: 2rem;
 }
 
+/* Table headers (clickable for sorting) */
 th, td {
   padding: 0.6rem 0.8rem;
   text-align: left;
-  border: 1px solid #ccc; /* lighter border color */
+  border: 1px solid #ddd;
 }
 
 th {
-  background-color: #f0f0f0; /* back to previous header color */
-  color: #000; /* black text */
-  cursor: pointer; /* for sorting */
+  background-color: #111; /* dark top bar */
+  color: #fff; /* white text on top bar */
+  cursor: pointer;
   user-select: none;
 }
 
@@ -50,20 +51,26 @@ th.desc::after {
   content: " ▼";
 }
 
-/* Highlight year row with subtle color */
+/* Highlight year row */
 thead tr.year-row {
-  background-color: #e0e0e0; /* slightly darker than table header */
+  background-color: #ff9f1c; /* bright orange */
   font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 2;
+  color: #111; /* dark text on orange */
+}
+
+/* Table body background */
+tbody tr {
+  background-color: #ffbf69; /* softer orange for body rows */
 }
 
 /* Row hover effect */
 tbody tr:hover {
-  background-color: #f9f9f9; /* subtle hover effect */
+  background-color: #ffd88f; /* slightly lighter on hover */
 }
 
 /* Responsive adjustments */
