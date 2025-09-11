@@ -36,36 +36,44 @@ function renderTables(data) {
   years.forEach(year => {
     const yearData = data.filter(d => d.year === year);
 
-    const drinks = [...new Set(yearData.map(d => `${d.size_liters}l ${d.beer_brand}`))].sort();
-    const festivals = [...new Set(yearData.map(d => d.festival))].sort();
-
     const table = document.createElement("table");
 
-    let thead = `<thead>
-      <tr><th colspan="${drinks.length + 1}">${year}</th></tr>
-      <tr><th>Festival</th>`;
-    drinks.forEach(drink => thead += `<th>${drink}</th>`);
-    thead += "</tr></thead>";
+    // Table header
+    const thead = `
+      <thead>
+        <tr><th colspan="5">${year}</th></tr>
+        <tr>
+          <th>Festival</th>
+          <th>Beer Brand</th>
+          <th>Size (L)</th>
+          <th>Price (€)</th>
+          <th>Price/L (€)</th>
+        </tr>
+      </thead>
+    `;
 
+    // Table body
     let tbody = "<tbody>";
-    festivals.forEach(festival => {
-      tbody += `<tr><td><strong>${festival}</strong></td>`;
-      drinks.forEach(drink => {
-        const item = yearData.find(d =>
-          d.festival === festival && `${d.size_liters}l ${d.beer_brand}` === drink
-        );
-        tbody += `<td>${item ? item.price_eur.toFixed(2) : "-"}</td>`;
-      });
-      tbody += "</tr>";
+    yearData.forEach(item => {
+      tbody += `
+        <tr>
+          <td>${item.festival}</td>
+          <td>${item.beer_brand}</td>
+          <td>${item.size_liters.toFixed(2)}</td>
+          <td>${item.price_eur.toFixed(2)}</td>
+          <td>${item.price_per_liter.toFixed(2)}</td>
+        </tr>
+      `;
     });
     tbody += "</tbody>";
 
     table.innerHTML = thead + tbody;
     container.appendChild(table);
 
-    enableSorting(table);
+    enableSorting(table); // keep sorting by any column
   });
 }
+
 
 function enableSorting(table) {
   const headers = table.querySelectorAll("thead tr:nth-child(2) th");
