@@ -7,24 +7,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Festival Drink Prices in Finland</h1>
-  <p>Collected drink prices from Finnish festivals.</p>
+  <header>
+    <h1>Festival Drink Prices in Finland</h1>
+    <p>Collected drink prices from Finnish festivals over the years</p>
+    <input type="text" id="search" placeholder="🔍 Search festival or drink...">
+  </header>
 
-  <input type="text" id="search" placeholder="Search festival or drink...">
-  <input type="number" id="yearFilter" placeholder="Filter by year">
+  <main id="tablesContainer"></main>
 
-
-  <table id="drinkTable">
-    <thead>
-      <tr>
-        <th>Festival</th>
-        <th>Drink</th>
-        <th>Price (€)</th>
-        <th>Year</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <footer>
+    <p>Made with 🍻 by the community</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
