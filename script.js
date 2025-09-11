@@ -1,5 +1,5 @@
 // CSV link from your published Google Sheet
-const sheetUrl = "REMOVED";
+const sheetUrl = "https://festarikaljat-backend.vercel.app/api/beers";
 
 async function loadData() {
   try {
@@ -96,3 +96,4 @@ function enableSorting(table) {
 
 // Load data on page load
 loadData();
+
