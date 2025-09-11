@@ -1,6 +1,4 @@
-// Make sure you include PapaParse in your HTML
-// <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
+// CSV link from your published Google Sheet
 const sheetUrl = "REMOVED";
 
 async function loadData() {
@@ -31,51 +29,44 @@ function renderTables(data) {
   const container = document.getElementById("tablesContainer");
   container.innerHTML = "";
 
-  // Sort years descending so latest year is on top
-const years = [...new Set(data.map(d => d.year))].sort((a, b) => b - a);
-
+  // Latest year first
+  const years = [...new Set(data.map(d => d.year))].sort((a, b) => b - a);
 
   years.forEach(year => {
     const yearData = data.filter(d => d.year === year);
-
     const table = document.createElement("table");
 
-    // Table header
-    const thead = `
-      <thead>
-        <tr><th colspan="5">${year}</th></tr>
-        <tr>
-          <th>Festival</th>
-          <th>Beer Brand</th>
-          <th>Size (L)</th>
-          <th>Price (€)</th>
-          <th>Price/L (€)</th>
-        </tr>
-      </thead>
-    `;
+    // Year row
+    let thead = `<thead>
+      <tr class="year-row"><th colspan="5">${year}</th></tr>
+      <tr>
+        <th>Festival</th>
+        <th>Beer Brand</th>
+        <th>Size (L)</th>
+        <th>Price (€)</th>
+        <th>Price/L (€)</th>
+      </tr>
+    </thead>`;
 
     // Table body
     let tbody = "<tbody>";
     yearData.forEach(item => {
-      tbody += `
-        <tr>
-          <td>${item.festival}</td>
-          <td>${item.beer_brand}</td>
-          <td>${item.size_liters.toFixed(2)}</td>
-          <td>${item.price_eur.toFixed(2)}</td>
-          <td>${item.price_per_liter.toFixed(2)}</td>
-        </tr>
-      `;
+      tbody += `<tr>
+        <td>${item.festival}</td>
+        <td>${item.beer_brand}</td>
+        <td>${item.size_liters.toFixed(2)}</td>
+        <td>${item.price_eur.toFixed(2)}</td>
+        <td>${item.price_per_liter.toFixed(2)}</td>
+      </tr>`;
     });
     tbody += "</tbody>";
 
     table.innerHTML = thead + tbody;
     container.appendChild(table);
 
-    enableSorting(table); // keep sorting by any column
+    enableSorting(table);
   });
 }
-
 
 function enableSorting(table) {
   const headers = table.querySelectorAll("thead tr:nth-child(2) th");
@@ -84,6 +75,7 @@ function enableSorting(table) {
       const tbody = table.querySelector("tbody");
       const rows = Array.from(tbody.querySelectorAll("tr"));
       const asc = th.classList.toggle("asc");
+      th.classList.toggle("desc", !asc);
 
       rows.sort((a, b) => {
         const aText = a.children[i].innerText.trim();
@@ -102,4 +94,5 @@ function enableSorting(table) {
   });
 }
 
+// Load data on page load
 loadData();

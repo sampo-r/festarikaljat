@@ -30,7 +30,7 @@ th, td {
   text-align: center;
 }
 
-/* Table header */
+/* Table header for sortable columns */
 th {
   background-color: #34495e;
   color: #fff;
@@ -61,4 +61,11 @@ th.asc::after {
 th.desc::after {
   content: " ▼";
   font-size: 0.8em;
+}
+
+/* Year header row */
+tr.year-row th {
+  background-color: #1abc9c; /* teal */
+  color: #fff;
+  text-transform: uppercase;
 }
