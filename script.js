@@ -18,9 +18,9 @@ async function loadData() {
     const table = document.createElement("table");
 
     // Header row
-    let thead = `<thead><tr><th>Festival</th>`;
+    let thead = `<thead><tr><th colspan="${drinks.length + 1}">${year}</th></tr><tr><th data-sort="festival">Festival ⬍</th>`;
     drinks.forEach(drink => {
-      thead += `<th>${drink}</th>`;
+      thead += `<th data-sort="${drink}">${drink} ⬍</th>`;
     });
     thead += `</tr></thead>`;
 
@@ -37,25 +37,37 @@ async function loadData() {
     });
     tbody += "</tbody>";
 
-    // Wrap table with title
-    table.innerHTML = `
-      <thead>
-        <tr><th colspan="${drinks.length + 1}">${year}</th></tr>
-      </thead>
-      ${thead}
-      ${tbody}
-    `;
+    table.innerHTML = thead + tbody;
     container.appendChild(table);
+
+    // Add sorting
+    enableSorting(table);
   });
+}
 
-  // Search filter
-  document.getElementById("search").addEventListener("input", function() {
-    const keyword = this.value.toLowerCase();
-    const tables = container.querySelectorAll("table");
+// Sorting function
+function enableSorting(table) {
+  const headers = table.querySelectorAll("thead th");
+  headers.forEach((th, i) => {
+    th.addEventListener("click", () => {
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+      const asc = th.classList.toggle("asc");
 
-    tables.forEach(table => {
-      const text = table.innerText.toLowerCase();
-      table.style.display = text.includes(keyword) ? "table" : "none";
+      rows.sort((a, b) => {
+        const aText = a.children[i].innerText;
+        const bText = b.children[i].innerText;
+
+        // If numeric values
+        if (!isNaN(parseFloat(aText)) && !isNaN(parseFloat(bText))) {
+          return asc ? aText - bText : bText - aText;
+        }
+        // Text values
+        return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+      });
+
+      tbody.innerHTML = "";
+      rows.forEach(r => tbody.appendChild(r));
     });
   });
 }

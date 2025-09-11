@@ -23,25 +23,15 @@ header p {
   color: #ccc;
 }
 
-#search {
-  margin-top: 1rem;
-  padding: 0.6rem 1rem;
-  border-radius: 25px;
-  border: none;
-  width: 60%;
-  max-width: 400px;
-  font-size: 1rem;
-}
-
 /* Tables container */
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 2rem;
   padding: 2rem;
 }
 
-/* Festival cards */
+/* Festival tables */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -59,6 +49,12 @@ thead {
 thead th {
   padding: 0.8rem;
   text-align: left;
+  cursor: pointer;
+  user-select: none;
+}
+
+thead th:hover {
+  background: #005f99;
 }
 
 tbody td {
