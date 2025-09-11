@@ -2,7 +2,8 @@
 // <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 async function loadData() {
-  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgHePLMMCG5HB9M9UeW97ZydyHIQdwaqkHWkpGxgtAeKGbU1gYv7G3A5wAZx4n7tFT4AioQq6DfGcd/pub?gid=0&single=true&output=csv"; // replace with your sheet link
+  const url = "REMOVED";
+ // replace with your sheet link
 
   try {
     const response = await fetch(url);
