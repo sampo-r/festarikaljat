@@ -95,7 +95,7 @@ tbody tr:hover {
   }
 }
 
-/* Floating top-right Google Form button */
+/* Floating top-right Google Form button (desktop default) */
 .submit-btn {
   position: fixed;
   top: 20px;
@@ -109,6 +109,9 @@ tbody tr:hover {
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   z-index: 1000;
   font-size: 1rem; /* base font size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Hover effect */
@@ -117,24 +120,21 @@ tbody tr:hover {
   transition: 0.2s;
 }
 
-/* Mobile optimization */
+/* Mobile optimization: move to bottom center */
 @media screen and (max-width: 600px) {
   .submit-btn {
-    padding: 0.5rem 0.8rem;
+    top: auto;           /* unset top */
+    bottom: 20px;        /* stick to bottom */
+    right: 50%;          /* center horizontally */
+    transform: translateX(50%); /* adjust for exact center */
+    padding: 0.6rem 1rem;
     font-size: 0.85rem;
-    top: 15px;
-    right: 15px;
   }
 }
 
 /* Extra small screens: show only icon */
 @media screen and (max-width: 360px) {
-  .submit-btn {
-    padding: 0.5rem 0.6rem;
-    font-size: 0.9rem;
-  }
   .submit-btn span {
-    display: none; /* hides text, keeps icon only */
+    display: none; /* hide text, keep icon */
   }
 }
-
