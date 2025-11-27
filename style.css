@@ -134,3 +134,22 @@ tbody tr:hover {
     display: none;
   }
 }
+
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+/* Slightly smaller on mobile */
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}
